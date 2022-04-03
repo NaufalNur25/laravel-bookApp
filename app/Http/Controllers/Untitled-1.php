@@ -10,6 +10,6 @@ Post::create([
 
 
         Category::create([
-        'name' => 'Comedy',
-        'slug' => 'comedy',
+        'name' => 'Horror ',
+        'slug' => 'horror ',
         ])
