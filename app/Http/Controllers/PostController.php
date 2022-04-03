@@ -30,8 +30,18 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
-        return view('tambah');
+        // title
+        // slug
+        // publisher
+        // author
+        // excerpt
+        // body
+        // publish_at
+        // filename
+
+        return view('tools');
+
+
     }
 
     /**
@@ -44,29 +54,30 @@ class PostController extends Controller
     {
         //
 
-        dd($request);
         $request->validate([
-            'hotelName' => 'required',
-            'location' => 'required',
-            'price' => 'required',
+            'title'=>'required',
+            'slug'=>'required',
+            'author'=>'required',
+            'publisher'=>'required',
+            'publish_at'=>'required',
+            'excerpt'=>'required',
+            'body'=>'required',
             'filename'=>'required',
-            'filename.*'=> 'image|mimes:jpeg,png,jpg|max:2048',
-            'category' => 'required',
-            'desc' => 'required'
-        ]);
+            'filename.*'=> 'image|mimes:jpeg,png,jpg|max:2048']);
 
-        $imageName = time().'.'.$request->path->extension();
-        $request->path->move(storage_path('app').'/public/images/', $imageName);
+        $imageName = time().'.'.$request->filename->extension();
+        $request->filename->move(storage_path().'/app/public/images/', $imageName);
+        $book = Post::create([
+            'title'=>$request['title'],
+            'slug'=>$request['slug'],
+            'author'=>$request['author'],
+            'publisher'=>$request['publisher'],
+            'publish_at'=>$request['publish_at'],
+            'excerpt'=>$request['excerpt'],
+            'body'=>$request['body'],
+            'filename'=>$imageName]);
 
-        Post::create([
-            'hotelName'=>$request['hotelName'],
-            'location'=>$request['location'],
-            'price'=>$request['price'],
-            'filename'=>$request['filename'],
-            'filename'=>$imageName,
-            'category' =>$request['category'],
-            'desc'=>$request['desc']
-        ]);
+        return redirect()->route('home.index')->with('success', 'Book has been added.');
     }
 
     /**
@@ -78,8 +89,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('detail', [
-            "detail" => $post,
-            "detail" => $post
+            "post" => $post
         ]);
     }
 
@@ -92,7 +102,10 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
-
+        // dd($post);
+        return view('tools', [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -102,9 +115,33 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
         //
+        $request->validate([
+            'title'=>'required',
+            'slug'=>'required',
+            'author'=>'required',
+            'publisher'=>'required',
+            'publish_at'=>'required',
+            'excerpt'=>'required',
+            'body'=>'required']);
+
+            $post->title = $request->title;
+            $post->slug = $request->slug;
+            $post->author = $request->author;
+            $post->publisher = $request->publisher;
+            $post->publish_at = $request->publish_at;
+            $post->excerpt = $request->excerpt;
+            $post->body = $request->body;
+            if ($request->hasFile('filename')) {
+                $imageName = time().'.'.request()->filename->getClientOriginalExtension();
+                request()->filename->move(storage_path().'/app/public/images/', $imageName);
+                $post->filename = $imageName;
+            }
+            $post->save();
+            return redirect()->route('home.index')->with('success', 'Book has been update.');
+
     }
 
     /**

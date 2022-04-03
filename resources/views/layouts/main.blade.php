@@ -29,13 +29,7 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            <form>
-              <div class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </div>
-            </form>
-
+              <b>Tool</b>
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               @yield('tambah')
              </ul>

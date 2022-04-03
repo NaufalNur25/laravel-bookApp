@@ -18,25 +18,20 @@ Route::get('', function () {
     return redirect('/home');
 });
 
-Route::get('detail', function () {
-    return view('detail');
-});
-
-Route::get('edit', function () {
-    return view('edit');
-});
-
-Route::get('tambah', [PostController::class, 'create']);
-
-Route::get('categories', function(){
-    return view('categories', [
-        'categories' => Category::all()
-    ]);
-});
+// Route::get('categories', function(){
+//     return view('categories', [
+//         'categories' => Category::all()
+//     ]);
+// });
 
 
-Route::get('home', [PostController::class, 'index']);
-Route::get('home/{post}', [PostController::class, 'destroy']);
+Route::get('home', [PostController::class, 'index'])->name('home.index');
+
+Route::get('home/{post}/delete', [PostController::class, 'destroy']);
 Route::get('detail/{post:slug}', [PostController::class, 'show']);
-Route::get('tambah', [PostController::class, 'create']);
-Route::post('tambah/execute', [PostController::class, 'store']);
+
+Route::get('add', [PostController::class, 'create']);
+Route::post('add/execute', [PostController::class, 'store']);
+
+Route::get('edit/{post:id}', [PostController::class, 'edit']);
+Route::post('edit/execute/{post:id}', [PostController::class, 'update']);
