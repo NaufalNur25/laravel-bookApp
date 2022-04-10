@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +28,14 @@ Route::get('', function () {
 
 Route::get('home', [PostController::class, 'index'])->name('home.index');
 
-Route::get('home/{post}/delete', [PostController::class, 'destroy']);
-Route::get('detail/{post:slug}', [PostController::class, 'show']);
+Route::get('home/detail/{post:slug}', [PostController::class, 'show']);
 
-Route::get('add', [PostController::class, 'create']);
-Route::post('add/execute', [PostController::class, 'store']);
+Route::get('tools/{title}', [PostController::class, 'create']);
+Route::post('tools/add/execute', [PostController::class, 'store'])->name('add');
 
-Route::get('edit/{post:id}', [PostController::class, 'edit']);
-Route::post('edit/execute/{post:id}', [PostController::class, 'update']);
+Route::get('tools/edit/{post:id}', [PostController::class, 'edit']);
+Route::post('tools/edit/execute/{post:id}', [PostController::class, 'update']);
+Route::get('tools/{post:id}/delete', [PostController::class, 'destroy'])->name('tools.delete');
+
+Route::get('tools/{title}', [CategoryController::class, 'create']);
+Route::post('tools/addCategory/execute', [CategoryController::class, 'store'])->name('addCategory');

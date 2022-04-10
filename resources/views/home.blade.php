@@ -1,31 +1,3 @@
-@if (session('success'))
-    <div aria-live="polite" aria-atomic="true" class="bg-dark position-relative bd-example-toasts">
-        <div class="toast-container position-absolute p-3" id="top-0 end-0">
-        <div class="toast">
-            <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Storage Book</strong>
-            <small>just now</small>
-            </div>
-            <div class="toast-body">
-                {{ session('success') }}
-            </div>
-        </div>
-        </div>
-    </div>
-@endif
-
-@if ($errors -> any())
-    <div class="alert-danger">
-        <ul>
-            @foreach ($errors -> all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-
-    @endif
-
     @extends('layouts.main')
     @section('content')
 
@@ -73,7 +45,10 @@
 
 @section('tambah')
     <div class="tambah mt-3 d-grid" style="">
-        <a href="add" class="btn btn-primary">Tambah</a>
+        <a href="{{ url('tools').'/add' }}" class="btn btn-primary">Add Book</a>
+    </div>
+    <div class="tambah mt-1 d-grid" style="">
+        <a href="{{ url('tools').'/addCategory' }}" class="btn btn-warning">Add Category</a>
     </div>
 @endsection
 

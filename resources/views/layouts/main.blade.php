@@ -29,7 +29,14 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-              <b>Tool</b>
+            <b class="mb-1">Find Title Book</b>
+              {{-- search --}}
+          <form class="d-flex mb-3">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+          </form>
+
+              <b>Tools</b>
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               @yield('tambah')
              </ul>
@@ -37,6 +44,9 @@
         </div>
       </div>
     </nav>
+
+    {{-- seasson --}}
+    @include('layouts.partials.seasson')
 
     {{-- maincontent --}}
     <div class="container-fluid" style="width: 95%">

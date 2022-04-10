@@ -28,7 +28,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($title)
     {
         // title
         // slug
@@ -39,8 +39,8 @@ class PostController extends Controller
         // publish_at
         // filename
 
-        return view('tools');
-
+        //
+            return view('tools');
 
     }
 
@@ -53,31 +53,31 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+            $request->validate([
+                'title'=>'required',
+                'slug'=>'required',
+                'author'=>'required',
+                'publisher'=>'required',
+                'publish_at'=>'required',
+                'excerpt'=>'required',
+                'body'=>'required',
+                'filename'=>'required',
+                'filename.*'=> 'image|mimes:jpeg,png,jpg|max:2048']);
 
-        $request->validate([
-            'title'=>'required',
-            'slug'=>'required',
-            'author'=>'required',
-            'publisher'=>'required',
-            'publish_at'=>'required',
-            'excerpt'=>'required',
-            'body'=>'required',
-            'filename'=>'required',
-            'filename.*'=> 'image|mimes:jpeg,png,jpg|max:2048']);
+            $imageName = time().'.'.$request->filename->extension();
+            $request->filename->move(storage_path('app').'/public/images/', $imageName);
+            Post::create([
+                'title'=>$request['title'],
+                'slug'=>$request['slug'],
+                'author'=>$request['author'],
+                'publisher'=>$request['publisher'],
+                'publish_at'=>$request['publish_at'],
+                'excerpt'=>$request['excerpt'],
+                'body'=>$request['body'],
+                'filename'=>$imageName]);
 
-        $imageName = time().'.'.$request->filename->extension();
-        $request->filename->move(storage_path().'/app/public/images/', $imageName);
-        $book = Post::create([
-            'title'=>$request['title'],
-            'slug'=>$request['slug'],
-            'author'=>$request['author'],
-            'publisher'=>$request['publisher'],
-            'publish_at'=>$request['publish_at'],
-            'excerpt'=>$request['excerpt'],
-            'body'=>$request['body'],
-            'filename'=>$imageName]);
+            return redirect()->route('home.index')->with('success', 'Book has been added.');
 
-        return redirect()->route('home.index')->with('success', 'Book has been added.');
     }
 
     /**
@@ -136,7 +136,7 @@ class PostController extends Controller
             $post->body = $request->body;
             if ($request->hasFile('filename')) {
                 $imageName = time().'.'.request()->filename->getClientOriginalExtension();
-                request()->filename->move(storage_path().'/app/public/images/', $imageName);
+                request()->filename->move(storage_path('app').'/public/images/', $imageName);
                 $post->filename = $imageName;
             }
             $post->save();
@@ -150,11 +150,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($post)
+    public function destroy(Post $post)
     {
         //
-        $post = Post::find($post);
         $post -> delete();
-        return back() -> with('Succses',' Penghapusan data berhasil.');
+        return redirect()->route('home.index')->with('success', 'Book has been deleted.');
     }
 }

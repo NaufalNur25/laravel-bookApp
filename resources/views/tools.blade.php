@@ -46,9 +46,16 @@
     <label for="floatingTextarea2">Isi Buku</label>
     </div>
 
-
-    <div class="col-12 mb-8 mt-3">
+    <div class="d-grid gap-2 mb-1 mt-3">
     <button type="submit" class="btn btn-primary">Submit</button>
     </div>
+
+    @if (@$post)
+    <div class="d-grid gap-2 mb-5 mt-3">
+        <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
+    </div>
+    @endif
 </form>
+
 @endsection
