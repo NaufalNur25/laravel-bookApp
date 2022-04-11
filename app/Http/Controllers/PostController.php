@@ -23,12 +23,19 @@ class PostController extends Controller
 
     }
 
+    public function search()
+    {
+        //
+
+        // Post::where('title', 'LIKE', '%value%')->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($title)
+    public function create()
     {
         // title
         // slug
@@ -40,7 +47,9 @@ class PostController extends Controller
         // filename
 
         //
-            return view('tools');
+            return view('tools', [
+                'categories' => Category::all()
+            ]);
 
     }
 
@@ -52,11 +61,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
             $request->validate([
                 'title'=>'required',
                 'slug'=>'required',
                 'author'=>'required',
+                'category_id'=>'required',
                 'publisher'=>'required',
                 'publish_at'=>'required',
                 'excerpt'=>'required',
@@ -67,14 +77,16 @@ class PostController extends Controller
             $imageName = time().'.'.$request->filename->extension();
             $request->filename->move(storage_path('app').'/public/images/', $imageName);
             Post::create([
-                'title'=>$request['title'],
-                'slug'=>$request['slug'],
-                'author'=>$request['author'],
-                'publisher'=>$request['publisher'],
-                'publish_at'=>$request['publish_at'],
-                'excerpt'=>$request['excerpt'],
-                'body'=>$request['body'],
-                'filename'=>$imageName]);
+                'title' => $request['title'],
+                'slug' => $request['slug'],
+                'author' => $request['author'],
+                'category_id' => $request['category_id'],
+                'publisher' => $request['publisher'],
+                'publish_at' => $request['publish_at'],
+                'excerpt' => $request['excerpt'],
+                'body' => $request['body'],
+                'filename'=>$imageName,
+            ]);
 
             return redirect()->route('home.index')->with('success', 'Book has been added.');
 
@@ -104,7 +116,8 @@ class PostController extends Controller
         //
         // dd($post);
         return view('tools', [
-            'post' => $post
+            'post' => $post,
+            'categories' => Category::all()
         ]);
     }
 

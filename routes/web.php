@@ -28,14 +28,16 @@ Route::get('', function () {
 
 Route::get('home', [PostController::class, 'index'])->name('home.index');
 
-Route::get('home/detail/{post:slug}', [PostController::class, 'show']);
+Route::get('home/detail/{post:slug}', [PostController::class, 'show'])->name('showBook');
 
-Route::get('tools/{title}', [PostController::class, 'create']);
-Route::post('tools/add/execute', [PostController::class, 'store'])->name('add');
+Route::get('tools/add', [PostController::class, 'create']);
+Route::post('tools/add/execute', [PostController::class, 'store'])->name('tools.add');
 
-Route::get('tools/edit/{post:id}', [PostController::class, 'edit']);
-Route::post('tools/edit/execute/{post:id}', [PostController::class, 'update']);
+Route::get('tools/edit/{post:id}', [PostController::class, 'edit'])->name('edit');
+Route::post('tools/edit/execute/{post:id}', [PostController::class, 'update'])->name('tools.update');
 Route::get('tools/{post:id}/delete', [PostController::class, 'destroy'])->name('tools.delete');
 
-Route::get('tools/{title}', [CategoryController::class, 'create']);
+Route::get('tools/addCategory', [CategoryController::class, 'create']);
 Route::post('tools/addCategory/execute', [CategoryController::class, 'store'])->name('addCategory');
+
+Route::post('home/search', [UserController::class, 'index'])->name('user.index');

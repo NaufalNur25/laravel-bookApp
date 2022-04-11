@@ -7,7 +7,7 @@
     @csrf
     <div class="col-md-6">
     <label class="form-label">Genre</label>
-    <input type="text" class="form-control" id="inputEmail4" name="title" value="{{ @$post -> title }}">
+    <input type="text" class="form-control" id="inputEmail4" name="name" value="{{ @$post -> title }}">
     </div>
 
     <div class="col-md-6">

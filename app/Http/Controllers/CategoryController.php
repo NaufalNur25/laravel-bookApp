@@ -42,7 +42,7 @@ class CategoryController extends Controller
     {
         //
         Category::create([
-            'title'=>$request['name'],
+            'name'=>$request['name'],
             'slug'=>$request['slug'],
             'excerpt'=>$request['excerpt'],
         ]);

@@ -12,16 +12,6 @@ class Post extends Model
     // protected $fillable = ['title', 'publisher', 'author', 'excerpt', 'body', 'publish_at'];
     protected $guarded = ['id'];
 
-    public function setCategoryAttribute($value)
-    {
-        $this->attributes['category_id'] = json_encode($value);
-    }
-
-    public function getCategoryAttribute($value)
-    {
-        return $this->attributes['category_id'] = json_decode($value);
-    }
-
     /**
      * Get the user that owns the Post
      *

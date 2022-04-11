@@ -31,8 +31,8 @@
           <div class="offcanvas-body">
             <b class="mb-1">Find Title Book</b>
               {{-- search --}}
-          <form class="d-flex mb-3">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex mb-3" method="post" action="">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="value">
             <button class="btn btn-outline-primary" type="submit">Search</button>
           </form>
 

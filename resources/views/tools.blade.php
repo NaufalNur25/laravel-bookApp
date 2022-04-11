@@ -1,7 +1,7 @@
 @extends('layouts.form')
 
 @section('inputForm')
-<form class="row g-3" action="{{ @$post ? url('edit/execute',$post -> id ) : url('add/execute') }}" method="POST" enctype="multipart/form-data">
+<form class="row g-3" action="{{ @$post ? url('edit/execute',$post -> id ) : route('tools.add') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="col-md-6">
     <label class="form-label">Judul Buku</label>
@@ -21,6 +21,16 @@
     <div class="col-12">
     <label class="form-label">Penerbit</label>
     <input type="text" class="form-control" id="inputAddress" name="publisher" value="{{ @$post -> publisher }}">
+    </div>
+
+    <div class="col-12">
+    <label class="form-label">Genre</label>
+    <select name="category_id" class="form-select" aria-label="Default select example">
+        <option selected disabled>Open this select menu</option>
+        @foreach ($categories as $item)
+        <option value="{{ $item -> id }}">{{ $item -> name }}</option>
+        @endforeach
+    </select>
     </div>
 
     <div class="col-12">
