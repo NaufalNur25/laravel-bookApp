@@ -31,8 +31,8 @@
           <div class="offcanvas-body">
             <b class="mb-1">Find Title Book</b>
               {{-- search --}}
-          <form class="d-flex mb-3" method="post" action="">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="value">
+          <form class="d-flex mb-3" action="/home">
+            <input class="form-control me-2" type="text" placeholder="Search.." aria-label="Search" name="search" value="{{ request('search') }}">
             <button class="btn btn-outline-primary" type="submit">Search</button>
           </form>
 
@@ -46,7 +46,7 @@
     </nav>
 
     {{-- seasson --}}
-    @include('layouts.partials.seasson')
+    @include('layouts.function.seasson')
 
     {{-- maincontent --}}
     <div class="container-fluid" style="width: 95%">

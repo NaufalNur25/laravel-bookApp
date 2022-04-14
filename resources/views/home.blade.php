@@ -1,6 +1,6 @@
     @extends('layouts.main')
-    @section('content')
 
+    @section('content')
 
 <div class="mt-5">
     <small>Dashboard</small><h4 class="mb-3">| Naufal Nur Hafizh</h4>
@@ -14,9 +14,13 @@
                     <p class="card-text">{{ $post -> excerpt }}</p>
                     </div>
                     <div class="card-footer">
-                    <small class="text-muted">Last updated <b>{{ $post -> created_at }}</b></small>
+                    <small class="text-muted"><b>{{ $post -> updated_at -> diffForHumans() }}</b> <span class="{{  $post -> updated_at -> diffForHumans() >= 10
+                        ? 'badge bg-primary' : '' }}">
+                    {{
+                        $post -> updated_at -> diffForHumans() >= 10
+                        ? 'New' : ''
+                    }}</span></small>
                     </div>
-
             </div>
             </div>
     @endforeach
@@ -29,7 +33,7 @@
     <div class="row row-cols-1 row-cols-md-5 g-4">
     @foreach ($categories as $categori)
         <div class="col zoom">
-            <a href="categories/{{ $categori -> slug  }}" class="text-decoration-none">
+            <a href="{{ route('categoryDetail', [$categori -> slug]) }}" class="text-decoration-none">
                 <div class="card text-white bg-secondary mb-3" style="max-width: 18rem; min-height: 12rem">
                     <div class="card-header">{{ $categori -> name }}</div>
                     <div class="card-body">
@@ -53,7 +57,3 @@
         <a href="{{ url('tools').'/addCategory' }}" class="btn btn-warning">Add Category</a>
     </div>
 @endsection
-
-
-
-

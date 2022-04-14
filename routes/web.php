@@ -33,11 +33,18 @@ Route::get('home/detail/{post:slug}', [PostController::class, 'show'])->name('sh
 Route::get('tools/add', [PostController::class, 'create']);
 Route::post('tools/add/execute', [PostController::class, 'store'])->name('tools.add');
 
-Route::get('tools/edit/{post:id}', [PostController::class, 'edit'])->name('edit');
+Route::get('tools/edit/{post:slug}', [PostController::class, 'edit'])->name('edit');
 Route::post('tools/edit/execute/{post:id}', [PostController::class, 'update'])->name('tools.update');
 Route::get('tools/{post:id}/delete', [PostController::class, 'destroy'])->name('tools.delete');
 
 Route::get('tools/addCategory', [CategoryController::class, 'create']);
 Route::post('tools/addCategory/execute', [CategoryController::class, 'store'])->name('addCategory');
 
-Route::post('home/search', [UserController::class, 'index'])->name('user.index');
+// Route::post('home/search', [Controller::class, 'index'])->name('user.index');
+
+Route::get('category/list', [CategoryController::class, 'list'])->name('categories');
+Route::get('category/{category:slug}', [CategoryController::class, 'index'])->name('categoryDetail');
+
+
+// functionEvent
+Route::get('/event/checkSlug', [PostController::class, 'checkSlug']);

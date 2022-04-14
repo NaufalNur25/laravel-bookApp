@@ -1,18 +1,16 @@
-@include('layouts.partials.seasson')
+@extends('layouts.form')
 
 @section('inputForm')
-
-@extends('layouts.form')
 <form class="row g-3" action="{{ route('addCategory') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="col-md-6">
     <label class="form-label">Genre</label>
-    <input type="text" class="form-control" id="inputEmail4" name="name" value="{{ @$post -> title }}">
+    <input type="text" class="form-control" id="title" name="name" value="{{ @$post -> title }}">
     </div>
 
     <div class="col-md-6">
     <label class="form-label">Slug Genre</label>
-    <input type="text" class="form-control" name="slug" value="{{ @$post -> slug }}" >
+    <input type="text" class="form-control" id="slug" name="slug" value="{{ @$post -> slug }}" readonly>
     </div>
 
     <div class="col-12">

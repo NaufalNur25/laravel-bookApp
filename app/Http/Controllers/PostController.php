@@ -6,6 +6,9 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+
 class PostController extends Controller
 {
     /**
@@ -16,9 +19,11 @@ class PostController extends Controller
     public function index()
     {
         //
+        $date='0000-00-00 00:60:00';
             return view("home", [
-                'posts'  => Post::all(),
-                'categories' => Category::all()
+                'posts'  => Post::latest() -> filter(request(['search'])) -> get(),
+                'categories' => Category::all(),
+                'date' => $date
             ]);
 
     }
@@ -168,5 +173,12 @@ class PostController extends Controller
         //
         $post -> delete();
         return redirect()->route('home.index')->with('success', 'Book has been deleted.');
+    }
+
+    public function checkSlug(Request $request)
+    {
+        //
+        $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
+        return response()->json(['slug' => $slug]);
     }
 }
