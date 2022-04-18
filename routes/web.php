@@ -42,8 +42,8 @@ Route::post('tools/addCategory/execute', [CategoryController::class, 'store'])->
 
 // Route::post('home/search', [Controller::class, 'index'])->name('user.index');
 
-Route::get('category/list', [CategoryController::class, 'list'])->name('categories');
-Route::get('category/{category:slug}', [CategoryController::class, 'index'])->name('categoryDetail');
+Route::get('category/list', [CategoryController::class, 'index'])->name('categories');
+Route::get('category/{category:slug}', [CategoryController::class, 'show'])->name('categoryDetail');
 
 
 // functionEvent

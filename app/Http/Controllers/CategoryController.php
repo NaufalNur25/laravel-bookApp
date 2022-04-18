@@ -8,19 +8,17 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function list(){
-        return view('categoryList');
-    }
-
-    /**
-     * Display a listing of the resource.
+     /**
+     * Display the specified resource.
      *
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function index(Category $category)
     {
-        return view('category', [
-            'category' => $category
+        return view('categorylist', [
+            'categories' => $category::all(),
+            'posts' => Post::all()
         ]);
     }
 
@@ -66,6 +64,11 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
+        return view('category',[
+            'category' => $category,
+            'posts' => $category -> post
+
+        ]);
     }
 
     /**

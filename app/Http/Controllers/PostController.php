@@ -19,11 +19,10 @@ class PostController extends Controller
     public function index()
     {
         //
-        $date='0000-00-00 00:60:00';
             return view("home", [
-                'posts'  => Post::latest() -> filter(request(['search'])) -> get(),
-                'categories' => Category::all(),
-                'date' => $date
+                'posts'  => Post::latest() -> paginate(5),
+                'recoms'  => Post::latest() -> filter(request(['search'])) -> paginate(6),
+                'categories' => Category::all()
             ]);
 
     }
